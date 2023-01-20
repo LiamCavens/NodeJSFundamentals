@@ -1,0 +1,36 @@
+{
+  "name": "nodejsfundamentals",
+  "version": "1.0.0",
+  "description": "Node JS Fundamentals from Mentoring Course ",
+  "main": "index.js",
+  "scripts": {
+    "reverse": "nodemon reverse.js",
+    "csvtojson": "nodemon csvtojson.js",
+    "babeltocsv": "npx babel babeltocsv.js --out-file b2csv-compiled.js && nodemon b2csv-compiled.js",
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LiamCavens/NodeJSFundamentals.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Javascript",
+    "Node"
+  ],
+  "author": "Liam Cavens",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LiamCavens/NodeJSFundamentals/issues"
+  },
+  "homepage": "https://github.com/LiamCavens/NodeJSFundamentals#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "csvtojson": "^2.0.10"
+  }
+}
