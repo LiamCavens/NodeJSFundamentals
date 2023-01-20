@@ -10,7 +10,7 @@ This is a repository for the NodeJS Fundamentals course.
 
 ### Run Reverse Text Script
 
-```bash npm run reverse.js ```
+```bash npm run reverse```
 
 ### Run CSV to JSON Script
 
