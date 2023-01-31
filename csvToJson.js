@@ -29,6 +29,6 @@ const outputStream = fs.createWriteStream(outputFile);
 
 // pipe the input stream through the parser and transformer, then to the output stream
 inputStream
-  .pipe(parser)
-  .pipe(transformer)
-  .pipe(outputStream);
+  .pipe(parser).on('error', (error) => console.error(`Error while reading CSV file: ${error.message}`))
+  .pipe(transformer).on('error', (error) => console.error(`Error while converting to JSON: ${error.message}`))
+  .pipe(outputStream).on('error', console.error(`Error while writing JSON file: ${error.message}`));
