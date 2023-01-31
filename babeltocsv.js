@@ -1,13 +1,10 @@
-import csv from 'csvtojson';
 import fs from 'fs';
+import csv from 'csv-parser';
 
-(async () => {
-  try {
-    const data = await fs.promises.readFile('./csv/nodejs-hw1.csv', 'utf8');
-    const jsonObj = await csv().fromString(data);
-    await fs.promises.writeFile('./outputs/outputByBabel.txt', JSON.stringify(jsonObj, null, 2));
-    console.log('The file has been saved!');
-  } catch (err) {
-    console.log(err);
-  }
-})();
+let writer = fs.createWriteStream('outputs/output-babel.json');
+
+fs.createReadStream('csv/nodejs-hw1.csv')
+  .pipe(csv())
+  .on('data', (data) => {
+    writer.write(JSON.stringify(data) + ', \n');
+  });
