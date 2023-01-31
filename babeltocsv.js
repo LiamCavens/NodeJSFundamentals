@@ -7,4 +7,7 @@ fs.createReadStream('csv/nodejs-hw1.csv')
   .pipe(csv())
   .on('data', (data) => {
     writer.write(JSON.stringify(data) + ', \n');
+  })
+  .on('error', (error) => {
+    console.log(error);
   });
