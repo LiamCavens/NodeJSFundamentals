@@ -21,11 +21,8 @@ const transformer = new stream.Transform({
   }
 });
 
-// create a read stream from the input file
-const inputStream = fs.createReadStream(inputFile);
-
-// create a write stream to the output file
-const outputStream = fs.createWriteStream(outputFile);
+const inputStream = fs.createReadStream(inputFile); // create a read stream from the input file
+const outputStream = fs.createWriteStream(outputFile); // create a write stream to the output file
 
 // pipe the input stream through the parser and transformer, then to the output stream
 inputStream
