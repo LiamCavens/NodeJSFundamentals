@@ -18,16 +18,39 @@ const users: User[] = [
 
 // Create a new user
 app.post('/users', (req, res) => {
-  const { login, password, age, isDeleted } = req.body;
-  const user: User = {
-    id: users.length + 1,
-    uuid: uuidv4(),
-    login,
-    password,
-    age,
-    isDeleted,
-  };
+  const { login, password, age } = req.body;
+
+  // Check that all required fields are present in the request body
+  if (!login || !password || !age) {
+    return res.status(400).send({ error: 'Missing required fields' });
+  }
+
+  // Check that the login is valid
+  if (!/^[a-zA-Z0-9]+$/.test(login)) {
+    return res.status(400).send({ error: 'Invalid login' });
+  }
+
+  // Check that the password contains letters and numbers
+  if (!/(?=.*[a-zA-Z])(?=.*\d)/.test(password)) {
+    return res.status(400).send({ error: 'Password must contain letters and numbers' });
+  }
+
+  // Check that the age is between 4 and 130
+  if (age < 4 || age > 130) {
+    return res.status(400).send({ error: 'Invalid age' });
+  }
+
+  // Generate a new ID for the user
+  const id = users.length + 1;
+  const uuid = uuidv4();
+
+  // Create a new user object
+  const user = { id, uuid, login, password, age, isDeleted: false };
+
+  // Add the new user to the users array
   users.push(user);
+
+  // Return the new user object as the response
   res.send(user);
 });
 
@@ -46,10 +69,38 @@ app.get('/users/:id', (req, res) => {
 app.put('/users/:id', (req, res) => {
   const { id } = req.params;
   const { login, password, age, isDeleted } = req.body;
+
+  // Check that all required fields are present in the request body
+  if (!login || !password || !age) {
+    return res.status(400).send({ error: 'Missing required fields' });
+  }
+
+  // Check that the login is valid
+  if (!/^[a-zA-Z0-9]+$/.test(login)) {
+    return res.status(400).send({ error: 'Invalid login' });
+  }
+
+  // Check that the password contains letters and numbers
+  if (!/(?=.*[a-zA-Z])(?=.*\d)/.test(password)) {
+    return res.status(400).send({ error: 'Password must contain letters and numbers' });
+  }
+
+  // Check that the age is between 4 and 130
+  if (age < 4 || age > 130) {
+    return res.status(400).send({ error: 'Invalid age' });
+  }
+
+  // Find the index of the user with the specified ID in the users array
   const index = users.findIndex(u => u.id === parseInt(id));
+
   if (index !== -1) {
-    const user = { login, password, age, isDeleted };
+    // Create a new user object with the updated fields
+    const user = { id: index, login, password, age, isDeleted };
+
+    // Update the user in the users array
     users[index] = user;
+
+    // Return the updated user object as the response
     res.send(user);
   } else {
     res.status(404).send({ error: 'User not found' });
